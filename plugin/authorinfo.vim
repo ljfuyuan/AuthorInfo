@@ -124,9 +124,7 @@ function s:AddTitle()
     normal o
     call setline('.',noTypeChar.preChar.'        Email: '.g:vimrc_email)
     normal o
-    call setline('.',noTypeChar.preChar.'     HomePage: '.g:vimrc_homepage)
-    normal o
-    call setline('.',noTypeChar.preChar.'      Version: 0.0.1')
+    call setline('.',noTypeChar.preChar.'   Create: '.strftime("%Y-%m-%d %H:%M:%S"))
     normal o
     call setline('.',noTypeChar.preChar.'   LastChange: '.strftime("%Y-%m-%d %H:%M:%S"))
     normal o
@@ -148,11 +146,11 @@ function s:AddTitle()
     startinsert!
     echohl WarningMsg | echo "Succ to add the copyright." | echohl None
 endf
-function s:TitleDet()
+function s:UpdateTitle()
     silent! normal ms
     let updated = 0
     let n = 1
-    "默认为添加
+    "默认为更新
     while n < 20
         let line = getline(n)
         if line =~ '^.*FileName:\S*.*$'
@@ -172,6 +170,6 @@ function s:TitleDet()
         echohl WarningMsg | echo "Succ to update the copyright." | echohl None
         return
     endif
-    call s:AddTitle()
 endfunction
-command! -nargs=0 AuthorInfoDetect :call s:TitleDet()
+command! -nargs=0 AuthorInfoAdd :call s:AddTitle()
+command! -nargs=0 AuthorInfoUpdate :call s:UpdateTitle()
